@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>Voting page</title>
+<style>
+body{
+	background-color: "#0000FF";
+	text-align: center;
+}
+.displaybox{
+	color: rgb(0,0,255);	
+	margin: auto;
+	width: 250px;
+	border: 2px solid #000000;
+	padding: 10px;
+	float: center;
+	font: 1.5em normal verdana, helvetica, arial; 
+}
+</style>
+<script type="text/javascript">
+var ajaxobject=new XMLHttpRequest();
+
+function getValidate()
+{
+ document.getElementById("check").innerHTML=document.getElementById("myform").elements['Section_1'].value
+}
+function getVotinglist()
+{
+if(!ajaxobject)
+  {
+       document.getElementById("vote").innerHTML="Ajax object not created";
+   return;
+	  }
+	  	  ajaxobject.open("GET","pro2.php");
+	  	  ajaxobject.send();
+	  	  ajaxobject.onreadystatechange=getResponse; 	
+}
+	function getResponse(){
+		if(ajaxobject.readyState == 4 && ajaxobject.status == 200)
+		{
+			document.getElementById('vote').innerHTML=ajaxobject.responseText;
+		}
+	}
+
+</script>
+</head>
+<body>
+<h1>CR Voting System</h1>
+
+<form>
+  <input type="button" value="candidate names" onclick="getVotinglist();"/>
+</form>>
+<div id="vote" class="displaybox">
+</div>
+<input type="button" value="submit" onclick="getValidate();"/>
+<div id="check" class="displaybox">
+</div>
+</body>
+</html>
